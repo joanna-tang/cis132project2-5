@@ -1,0 +1,326 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root * {
+  --bs-accordion-btn-bg: lightblue !important;
+  --bs-accordion-active-bg: cadetblue  !important;
+  
+}
+
+html {
+    background-color: beige;
+    height: 100%;
+    width: 100%;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray; 
+    /* centered layout */
+    max-width: 90%;
+    margin: auto;
+    /* rounded corner for entire page*/
+    border: 1px solid blueviolet;
+    border-radius: 25px;
+}
+
+header {
+    background-image: linear-gradient(to right, cadetblue 0%, lightskyblue 100%);
+    background-color: lightskyblue;
+    border-radius: 25px 25px 0 0;
+}
+
+header h1 {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+h1 {
+    font-style: italic !important;
+    text-align: center;
+}
+
+/* remove for horizontal menu
+nav ul{
+    list-style-type: square;
+}
+*/
+
+ol {
+    list-style: lower-roman;
+    line-height: 2;
+}
+
+section {
+    font-weight: bold;
+    color: cadetblue ;
+}
+
+footer {
+    clear: both;
+    text-align: right;
+    background-image: linear-gradient(to right, cadetblue 0%, lightgreen 100%);
+    background-color: lightgreen;
+    font-size: small;
+    padding-right: 25px;
+    border-radius: 0 0 25px 25px;
+}
+
+footer #created {
+    margin: 0px;
+}
+
+footer h2 {
+    font-size: 1.2em;
+}
+
+nav {
+    padding-right: 50px;
+    margin-right: 3em;
+}
+/* vertical nav from pg 237 */
+#nav_menu {
+    float: left;
+    width: 5%;
+    background-color: cadetblue;
+}
+#nav_menu ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+#nav_menu ul li {
+    width: 200px;
+    margin-bottom: .5em;
+}
+
+#nav_menu ul li a {
+    text-align: center;
+    display: block;
+    width: 100px;
+    padding: 1em 0;
+    background-color: grey;
+    color:black;
+    font-weight: bold;
+}
+
+#nav_menu ul li a.active{
+    background-color: darkslategray;
+    color: white;
+}
+
+#nav_menu ul li a:hover{
+    text-decoration: none;
+    background-color: darkslategray;
+    color: azure;
+}
+
+
+/* 2 column fluid layout pg 180-191 */
+main {
+    float: right;
+    width: 85%;
+    min-height: 80%;
+}
+
+main h2, main p {
+    margin-top: 15px;
+}
+
+aside {
+    float: right;
+    width: 50%;
+    background-color: azure;
+    padding-left: 10px;
+    min-height: 80%;
+}
+
+/* week 12 API display */
+#myTable
+{
+    float: left;
+  border: 1px;
+  width: 70%;
+  margin-left: 20px;
+  border-collapse: separate;
+}
+#myTable  td {
+        padding: 10px;
+}
+#myTable thead td, #myTable tfoot td {
+        background-color: lightblue; /*cadetblue, sandybrown;*/
+}
+   #myTable tr:nth-child(even) {
+        background: #CCC;
+     vertical-align: top;
+    }
+
+   #myTable tr:nth-child(odd) {
+        background: white;
+     vertical-align: top;
+    }
+
+#myTable a {
+      color: cadetblue;
+      text-decoration-skip-ink:none ; 
+}
+#myTable a:hover {
+      background-color: yellow;
+    }
+#myTable tfoot td {
+text-align: center;
+  border: 0;
+}
+
+#next, #prev, #pageno, #totalpage {
+  display: inline-block;
+}
+
+/* Style the close button (span) */
+.close {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    padding: 12px 16px;
+    transform: translate(0%, -50%);
+  }
+  
+.close:hover {background: #bbb;}
+  
+
+#googleMap {
+    float: right;
+    width: 28%;
+    height: 400px;  
+}
+
+/* gallery css */
+div.gallery {
+    border: 1px solid #ccc;
+  }
+  
+  div.gallery:hover {
+    border: 1px solid #777;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: auto;
+  }
+  
+  div.desc {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .responsive {
+    padding: 0 50px;
+    float: left;
+    width: 24.99999%;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .responsive {
+      width: 33.33333%;
+      margin: 6px 0;
+    }
+  }
+
+  @media only screen and (max-width: 725px) {
+    .responsive {
+      width: 49.99999%;
+      margin: 6px 0;
+    }
+    main {
+        width: 75%
+    }
+    #button {
+        margin-left: 1em;
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .responsive {
+      width: 80%;
+    }
+    main {
+        width: 75%
+    }
+    #button {
+        margin-left: 1em;
+    }
+  }
+  
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+
+/* pg 435 for form fields */
+label {
+    float: left;
+    width: 15em;   /* to accomodate more text */
+    text-align: right;
+    
+}
+
+input, select {
+    margin-left: 1em;
+    margin-bottom: .5em;
+}
+  
+#button {
+    margin-left: 19em;  /* to accomodate more text */
+}
+
+/* custom form fields */
+input[type=text], input[type=email], input[type=tel], input[type=number], select {
+    border-radius: 15px;
+    padding: 6px;
+    width: 200px;
+}
+  
+input[type=submit], input[type=reset]{
+    background-color: lightblue;
+    border-radius: 15px;
+    width: 90px;
+    padding: 6px;
+}  
+
+input:hover, input.focus, select.focus, select:hover {
+    background-color: lightgrey;  
+  }
+  
+input:invalid {
+    border-color: red;
+}
+
+.accordion {
+  width: 90%;
+}
+.accordion-body table {
+  border: 1px solid black;
+  width: 60%;
+}
+
+.accordion-body td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.accordion-body thead td, .accordion-body tfoot td {
+  background-color: lightblue; /*cadetblue, sandybrown;*/
+}
+
+.accordion-body a {
+  color: cadetblue;
+}
+

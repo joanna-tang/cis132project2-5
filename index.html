@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 2-5</title>
+  <link href="favicon.ico" rel="shortcut icon"> 
+  <link href="main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <!-- Header section -->
+  <header>
+<h1><img src="jtlogo.png" alt="Logo"></h1>
+  </header>
+
+  <!-- Middle section /w menu and content -->
+  <div id="container">
+    <nav id="nav_menu">
+      <ul>
+        <li><a href="index.html" class=active>Home</a></li>
+        <li><a href="gallery2.html">Gallery</a></li>
+        <li><a href="facility.html">Facility</a></li>
+        <li><a href="dogs.html">Dogs</a></li>
+        <li><a href="cats.html">Cats</a></li>
+        <li><a href="help.html">FAQ</a></li>
+      </ul> 
+    </nav>
+    <main>
+        <h2>Pet adoption information:</h2>
+        <p>Sign up here for a newsletter with your preference to learn more about pets around your neighborhood.</p>
+        <form id="email_form" action="mailto:joanna_tang@elcamino.edu?subject=project2" method="post"  enctype="text/plain">
+<p>
+          <label for="name">
+            Please enter your <u>n</u>ame: 
+          </label>
+          <input type="text" id="name" name=name minlength="2" maxlength="50" required autofocus accesskey="N"> <br>
+          <label for="email">
+            Please enter your <u>e</u>mail: 
+          </label>
+          <input type="email" id="email" name=email required accesskey="E"> <br>
+              <label for="phone">
+                Please enter your <u>m</u>obile phone: 
+              </label>
+              <input type="tel" id="phone" name=phone required accesskey="M"> <br>
+
+            <label for="zip">
+              Please enter your <u>z</u>ip code: 
+            </label>
+            <input type="number" id="zip" name=zip required accesskey="Z"> <br>
+            <label for="zip">
+              Please enter your <u>p</u>et preference: 
+            </label>
+            <select id="pet" multiple size="6" name="pet">
+              <option value="bird">Birds</option>
+              <option value="cat">Cats</option>
+              <option value="dog">Dogs</option>
+              <option value="fish">Fish</option>
+              <option value="rabbit">Rabbits</option>
+              <option value="other">Other</option>
+              </select> <br>
+            <input type="submit" id="button" value="Sign me up!">
+            <input type="reset" name="reset" id="reset">
+          </p>
+        </form>
+    </main>
+
+  </div>
+
+  <!-- Footer section -->
+  <footer>
+    <span class="close">x</span>
+    <h2>Contact Info:</h2>
+    <address>
+      Email: <a href="mailto:joanna_tang@hotmail.com">joanna_tang@hotmail.com</a><br>
+      Phone: <a href="tel:111-222-3333">111-222-3333</a> or Text: <a href="sms:999-999-9999">999-999-9999</a>
+    </address>
+    <p id=created>
+      Created By: Joanna Tang
+    </p>
+  </footer>
+
+</body>
+</html>

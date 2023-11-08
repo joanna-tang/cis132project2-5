@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 2-5</title>
+  <link href="main.css" rel="stylesheet" type="text/css">
+  <script src="script.js"></script>
+
+  <!-- week 6 jquery addition -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- week 10 jquery UI 1.13 addition -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <!-- resecuegroup.org api -->
+  <script src="https://s3.amazonaws.com/filestore.rescuegroups.org/scripts/noncvs/jquery-json.js"></script>
+</head>
+
+<body>
+  <!-- Header section -->
+  <header>
+    <h1><img src="jtlogo.png" alt="Logo"></h1>
+      </header>
+    
+  <!-- Middle section /w menu and content -->
+  <div id="container">
+    <nav id="nav_menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>        
+        <li><a href="gallery2.html">Gallery</a></li>
+        <li><a href="facility.html">Facility</a></li>
+        <li><a href="dogs.html"  class=active>Dogs</a></li>
+        <li><a href="cats.html">Cats</a></li>
+        <li><a href="help.html">FAQ</a></li>
+      </ul>
+    </nav>
+    <main>
+      <h2>There are <span id="PetsCount"> </span> dogs waiting for adoption near Torrance.</h2>
+      <script>
+        var i = GetParameterValues('pageindex') ?? 1;  // if no querystring, default to page 1
+        var q = 20; // count per page
+        var p = (i - 1) * q;  // page index number
+
+        function displayAPIresult(resultArray) {
+          $.each(resultArray, function (key, value) {
+            $('#myTable thead').after('<tr><td>' + key +
+              '</td><td>' + this.animalName + '<br>' + this.animalBirthdate +
+              '</td><td>' + this.animalGeneralAge + ' / ' + this.animalSex +
+              '</td><td>' + this.animalBreed + '<br>' + this.animalSummary +
+              '</td><td>' + this.animalLocation + ' / ' + this.animalLocationDistance +
+              '</td><td><img src=' + this.animalThumbnailUrl + '></td></tr>');
+          });
+          return true;
+        }
+        //https://userguide.rescuegroups.org/pages/viewpage.action?pageId=10813516
+        // search filter: available dogs withing 3 miles of torrance 90505
+        var thing = {
+          "apikey": "5eg4Qvvu",
+          "objectType": "animals",
+          "objectAction": "publicSearch",
+          "search": {
+            "calcFoundRows": "Yes",
+            "resultStart": p,
+            "resultLimit": q,
+            "resultSort": "animalID",
+            "resultOrder": "asc",
+            "fields": [
+              "animalName",
+              "animalOrgID",
+              "animalSpecies",
+              "animalBreed",
+              "animalThumbnailUrl",
+              "animalBirthdate",
+              "animalGeneralAge",
+              "animalSex",
+              "animalLocation",
+              "animalLocationDistance",
+              "animalSummary",
+              "animalMicrochipNumber"
+            ],
+            "filters": [
+              {
+                "fieldName": "animalLocation",
+                "operation": "equal",
+                "criteria": "90505"
+              },
+              {
+                "fieldName": "animalLocationDistance",
+                "operation": "radius",
+                "criteria": "6"  // change to 5 or 8 for more data
+              },
+              {
+                "fieldName": "animalSpecies",
+                "operation": "equal",
+                "criteria": "Dog"
+              },
+              {
+                "fieldName": "animalStatus",
+                "operation": "equal",
+                "criteria": "Available"
+              }
+            ]
+          }
+        };
+        var encoded = $.toJSON(thing);
+
+        //Test: https://test1-api.rescuegroups.org/http/v2.json
+        //Prod: https://api.rescuegroups.org/http/v2.json
+        $.ajax({
+          url: "https://api.rescuegroups.org/http/v2.json/?data=" + encoded,
+          dataType: "jsonp",
+          success: function (data) {
+            if (data.foundRows > 0) {
+              $('#PetsCount').text(data.foundRows);
+              $('#pageno').text(i);
+              $('#totalpage').text(Math.ceil(data.foundRows / q));
+              $('#prev a').attr('href', "dogs.html?pageindex=" + (parseInt(i) - 1));
+              $('#next a').attr('href', "dogs.html?pageindex=" + (parseInt(i) + 1));
+              if (i == 1) $('#prev a').text(''); // remove link
+              if (i == Math.ceil(data.foundRows / q)) $('#next a').text(''); // remove link
+              displayAPIresult(data.data);
+              if ($("header").height() + $("#container").height() >
+                $(window).height() - $("footer").height()) {
+                $("footer").hide();
+              }
+
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log('error');
+          }
+        });
+
+
+
+      </script>
+        <table id="myTable">
+          <thead>
+            <tr>
+              <td></td>
+              <td>Name / Birthdate / Microchip#</td>
+              <td>Age / Gender</td>
+              <td>Breed</td>
+              <td>Location / Distance</td>
+              <td>Photo</td>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td>
+                <div id=prev><a href="">
+                    &lt;</a>
+                </div>
+              </td>
+              <td colspan=4> page <div id=pageno> </div> of <div id=totalpage></div>
+              </td>
+              <td>
+                <div id=next><a href="">&gt;</a></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+    </main>
+  </div>
+
+  <!-- Footer section -->
+  <footer>
+    <span class="close">x</span>
+    <h2>Contact Info:</h2>
+    <address>
+      Email: <a href="mailto:joanna_tang@hotmail.com">joanna_tang@hotmail.com</a><br>
+      Phone: <a href="tel:111-222-3333">111-222-3333</a> or Text: <a href="sms:999-999-9999">999-999-9999</a>
+    </address>
+    <p id=created>
+      Created By: Joanna Tang
+    </p>
+  </footer>
+  <!-- add this to the bottom of the page to ensure all elements are loaded before -->
+  <script src="jquery.js"></script>
+
+</body>
+
+</html>

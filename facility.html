@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 2-5</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="main.css" rel="stylesheet" type="text/css">
+  <script src="script.js"></script>
+
+  <!-- week 6 jquery addition -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!-- week 10 jquery UI 1.13 addition -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <!-- resecuegroup.org api -->
+  <script src="https://s3.amazonaws.com/filestore.rescuegroups.org/scripts/noncvs/jquery-json.js"></script>
+</head>
+
+<body>
+  <!-- Header section -->
+  <header>
+    <h1><img src="jtlogo.png" alt="Logo"></h1>
+      </header>
+    
+  <!-- Middle section /w menu and content -->
+  <div id="container">
+    <nav id="nav_menu">
+      <ul>
+        <li><a href="index.html" >Home</a></li>
+        <li><a href="gallery2.html">Gallery</a></li>
+        <li><a href="facility.html" class=active>Facility</a></li>
+        <li><a href="dogs.html">Dogs</a></li>
+        <li><a href="cats.html">Cats</a></li>
+        <li><a href="help.html">FAQ</a></li>
+      </ul>
+    </nav>
+    <main>
+      <h2>There are <span id="PetsCount"> </span> rescue facilities near Torrance.</h2>
+      <script>
+        var i = GetParameterValues('pageindex') ?? 1;  // if no querystring, default to page 1
+        var q = 10; // count per page
+        var p = (i - 1) * q;  // page index number
+
+        function displayAPIresult(resultArray) {
+          $.each(resultArray, function (key, value) {
+            $('#myTable thead').after('<tr><td>' + this.orgID  +
+              '</td><td><a href="' + this.orgWebsiteUrl + '" target="_blank">' + this.orgName + '</a>' +
+              '</td><td>' + this.orgAddress  +
+              '</td><td>' + this.orgCity + ',' + this.orgState +
+              '</td><td><a href="tel:' + this.orgPhone + '">' + this.orgPhone + ' </a> <br> <a href="mailto:' + this.orgEmail + '">' + this.orgEmail + ' </a>' +
+              '</td><td>' + this.orgLocationDistance + '</td></tr>');
+          });
+          return true;
+        }
+        //https://userguide.rescuegroups.org/pages/viewpage.action?pageId=10813516
+        // search filter: available dogs withing 3 miles of torrance 90505
+        var thing = {
+          "apikey": "5eg4Qvvu",
+          "objectType":"orgs",
+          "objectAction":"publicSearch",
+          "search": {
+            "resultSort": "orgLocationDistance",
+            "resultOrder": "asc",
+            "calcFoundRows": "Yes",
+            "resultStart": p,
+            "resultLimit": q,
+            "fields": ["orgID","orgLocation","orgName","orgAddress","orgCity","orgState","orgPostalcode","orgPlus4","orgCountry",
+              "orgPhone","orgFax","orgEmail","orgWebsiteUrl","orgFacebookUrl","orgAdoptionUrl","orgDonationUrl","orgSponsorshipUrl",
+              "orgServeAreas","orgAdoptionProcess","orgAbout","orgServices","orgMeetPets","orgType","orgLocationDistance","orgCommonapplicationAccept"],
+            "filters": [
+            {
+                "fieldName": "orgLocationDistance",
+                "operation": "radius",
+                "criteria": "8"  // change to 5 or 8 for more data
+              },
+
+              {
+                "fieldName": "orgLocation",
+                "operation": "equal",
+                "criteria": "90505"
+              },
+              {
+                  "fieldName": "orgID",
+                  "operation": "greaterthan",
+                  "criteria": "0"
+              }
+            ]
+          }
+        };
+        var encoded = $.toJSON(thing);
+
+        //Test: https://test1-api.rescuegroups.org/http/v2.json
+        //Prod: https://api.rescuegroups.org/http/v2.json
+        $.ajax({
+          url: "https://api.rescuegroups.org/http/v2.json/?data=" + encoded,
+          dataType: "jsonp",
+          success: function (data) {
+            if (data.foundRows > 0) {
+              $('#PetsCount').text(data.foundRows);
+              $('#pageno').text(i);
+              $('#totalpage').text(Math.ceil(data.foundRows / q));
+              $('#prev a').attr('href', "facility.html?pageindex=" + (parseInt(i) - 1));
+              $('#next a').attr('href', "facility.html?pageindex=" + (parseInt(i) + 1));
+              if (i == 1) $('#prev a').text(''); // remove link
+              if (i == Math.ceil(data.foundRows / q)) $('#next a').text(''); // remove link
+              displayAPIresult(data.data);
+              if ($("header").height() + $("#container").height() >
+                $(window).height() - $("footer").height()) {
+                $("footer").hide();
+              }
+
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log('error');
+          }
+        });
+
+      </script>
+        <table id="myTable">
+          <thead>
+            <tr>
+              <td></td>
+              <td>Name</td>
+              <td>Address</td>
+              <td>City</td>
+              <td>Phone/Email</td>
+              <td>Distance</td>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td>
+                <div id=prev><a href="">
+                    &lt;</a>
+                </div>
+              </td>
+              <td colspan=4> page <div id=pageno> </div> of <div id=totalpage></div>
+              </td>
+              <td>
+                <div id=next><a href="">&gt;</a></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+
+      <!--div id="googleMap"></div>
+        
+      <script>
+        function myMap() {
+        var mapProp= {
+          center:new google.maps.LatLng(51.508742,-0.120850),
+          zoom:5,
+        };
+          var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        }
+        </script>
+  
+        <script src="https://maps.googleapis.com/maps/api/js?key=xxxxx&callback=myMap"></script-->
+  
+      </main>
+
+  </div>
+
+  <!-- Footer section -->
+  <footer>
+    <span class="close">x</span>
+    <h2>Contact Info:</h2>
+    <address>
+      Email: <a href="mailto:joanna_tang@hotmail.com">joanna_tang@hotmail.com</a><br>
+      Phone: <a href="tel:111-222-3333">111-222-3333</a> or Text: <a href="sms:999-999-9999">999-999-9999</a>
+    </address>
+    <p id=created>
+      Created By: Joanna Tang
+    </p>
+  </footer>
+  <!-- add this to the bottom of the page to ensure all elements are loaded before -->
+  <script src="jquery.js"></script>
+
+</body>
+
+</html>

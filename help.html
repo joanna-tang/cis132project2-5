@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 2-5</title>
+  <link href="favicon.ico" rel="shortcut icon"> 
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <!-- Header section -->
+  <header>
+<h1><img src="jtlogo.png" alt="Logo"></h1>
+  </header>
+
+  <!-- Middle section /w menu and content -->
+  <div id="container">
+    <nav id="nav_menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery2.html">Gallery</a></li>
+        <li><a href="facility.html">Facility</a></li>
+        <li><a href="dogs.html">Dogs</a></li>
+        <li><a href="cats.html">Cats</a></li>
+        <li><a href="help.html" class=active>FAQ</a></li>
+      </ul> 
+    </nav>
+    <main>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                What is the purpose of this website?
+            </button>
+          </h3>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                This is created as a class project for CIS 132 - Project 2. This website have an API connections to a 3rd party open source platform. I also used materials from my CIS133, CIS136 and CSCI12 to help me with this design.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                What are some of the 3rd party sources?
+            </button>
+          </h3>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+                <table>
+                    <thead>
+                      <tr>
+                        <td>Page:</td>
+                        <td>Source:</td>
+                      </tr>
+                    </thead>
+                    <tr>
+                        <td>Gallery</td>
+                        <td>
+                            <a href="https://getbootstrap.com/docs/5.1/components/card/#card-groups" target="_blank">Bootstrap
+                                Card Groups</a></td>
+                      </tr>
+                        <tr>
+                      <td>Facilitiy/Cats/Dogs</td>
+                      <td><a href="https://userguide.rescuegroups.org/display/APIDG/HTTP+API" target="_blank">rescuegroups.org
+                          API</a></td>
+                    </tr>
+                    <tr>
+                      <td>FAQ</td>
+                      <td><a href="https://getbootstrap.com/docs/5.2/components/accordion/" target="_blank">Bootstrap
+                        Accordion</a></td>
+                    </tr>
+                </table>
+        
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                What did you learn from this class?
+            </button>
+          </h3>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                HTML5/CSS combo is a powerful tool. To get better at them it will take some time and patience. I am glad to have used some of the newer technology such as bootstrap, which will help me to respond to UI related situations in my day to day job. But I don't like how bootstrap change the background of this page from beige to white as soon as I added the reference. Bootstrap also change the footers spacing.              
+            </div>
+          </div>
+        </div>
+      </div>
+  
+
+
+
+
+    
+    </main>
+
+  </div>
+
+  <!-- Footer section -->
+  <footer>
+    <span class="close">x</span>
+    <h2>Contact Info:</h2>
+    <address>
+      Email: <a href="mailto:joanna_tang@hotmail.com">joanna_tang@hotmail.com</a><br>
+      Phone: <a href="tel:111-222-3333">111-222-3333</a> or Text: <a href="sms:999-999-9999">999-999-9999</a>
+    </address>
+    <p id=created>
+      Created By: Joanna Tang
+    </p>
+  </footer>
+  <!-- add this to the bottom of the page to ensure all elements are loaded before -->
+  <script src="js/jquery.js"></script>
+
+</body>
+
+</html>
